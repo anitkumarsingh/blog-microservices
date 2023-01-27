@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/Forms/FormInput';
+import axios from 'axios';
+import { COMMENT_BASE_URL } from '../../constant/api';
 
-const CreateComments = () => {
-	const [commentTxt, setCommentTxt] = useState('');
+const CreateComments = ({ postId }) => {
+	const [content, setContent] = useState('');
 
-	const submitHandler = (e) => {
+	const submitHandler = async (e) => {
 		e.preventDefault();
-		setCommentTxt('');
+		await axios.post(`${COMMENT_BASE_URL}/posts/${postId}/comments`, { content });
+		setContent('');
 	};
 
 	return (
 		<>
-			<h1>Create Comments</h1>
+			<h5>Create Comment</h5>
 			<FormInput
 				type='text'
 				id='create-comment'
 				label='Title'
 				placeholder='Create comments...'
-				value={commentTxt}
-				onChangehandler={(e) => setCommentTxt(e.target.value)}
+				value={content}
+				onChangehandler={(e) => setContent(e.target.value)}
 			/>
 			<br />
-			<button onClick={submitHandler}>Submit</button>
+			<button onClick={submitHandler} className='btn btn-primary'>
+				Submit
+			</button>
 		</>
 	);
 };

@@ -4,8 +4,10 @@ const FormInput = ({ onChangehandler, ...rest }) => {
   const { id, label } = rest;
 	return (
 		<>
-			<label htmlFor={id}>{label}</label>
-			<input onChange={onChangehandler} {...rest} />
+			<label htmlFor={id} className='form-label'>
+				{label}
+			</label>
+			<input onChange={onChangehandler} {...rest} className='form-control' />
 		</>
 	);
 };

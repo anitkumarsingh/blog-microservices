@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FormInput from '../../components/Forms/FormInput';
 import axios from 'axios';
 import { POST_BASE_URL } from '../../constant/api';
+import ListPosts from './ListPosts';
 
 const CreatePosts = () => {
 	const [title, setTitle] = useState('');
@@ -25,8 +26,8 @@ const CreatePosts = () => {
 		setTitle('');
 	};
 	return (
-		<>
-			<h1>CreatePosts</h1>
+		<div className='container'>
+			<h1>Create Posts</h1>
 			<FormInput
 				type='text'
 				id='create-post'
@@ -36,8 +37,13 @@ const CreatePosts = () => {
 				onChangehandler={(e) => setTitle(e.target.value)}
 			/>
 			<br />
-			<button onClick={submitHandler}>Submit</button>
-		</>
+			<button onClick={submitHandler} className='btn btn-primary'>
+				Submit
+			</button>
+			<br />
+			<br />
+			<ListPosts />
+		</div>
 	);
 };
 
