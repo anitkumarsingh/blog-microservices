@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const axios = require('axios');
 
 const PORT = 4005 || process.env.PORT;
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/events', (req, res) => {

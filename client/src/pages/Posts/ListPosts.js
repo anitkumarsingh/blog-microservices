@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { POST_BASE_URL } from '../../constant/api';
+import { QUERY_BASE_URL } from '../../constant/api';
 import { CreateComments, ListComments } from '../Comments';
 
 const ListPosts = () => {
@@ -9,17 +9,17 @@ const ListPosts = () => {
 
 	const Fetch = async () => {
 		setIsLoading(true);
-		const fetchPost = await axios.get(`${POST_BASE_URL}/posts`);
+		const fetchPost = await axios.get(`${QUERY_BASE_URL}/posts`);
 		const result = await fetchPost.data;
-		console.log(result);
 		setItems(result);
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
 		Fetch();
 	}, []);
 
-	const renderedPosts = Object.values(item).map(({ id, title }) => {
+	const renderedPosts = Object.values(item).map(({ id, title, comments }) => {
 		return (
 			<div
 				className='card'
@@ -27,12 +27,15 @@ const ListPosts = () => {
 				style={{ width: '40%', marginBottom: '20px', color: 'black' }}>
 				<div className='card-body'>
 					<h4>{title}</h4>
-					<ListComments postId={id} />
+					<ListComments comments={comments} />
 					<CreateComments postId={id} />
 				</div>
 			</div>
 		);
 	});
+
+	if (isLoading) return <p>Loading...</p>;
+
 	return (
 		<>
 			<h1>List Posts</h1>

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const PORT = 4004 || process.env.PORT;
+const PORT = 4002 || process.env.PORT;
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +14,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/events', (req, res) => {
+	console.log('events');
 	const { type, data } = req.body;
 	if (type === 'PostCreated') {
 		const { id, title } = data;
